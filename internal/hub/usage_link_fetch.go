@@ -16,6 +16,7 @@ type UsageLinkDefaults struct {
 	Grok        string `json:"grok"`
 	Ollama      string `json:"ollama"`
 	OpenCode    string `json:"opencode"`
+	Devin       string `json:"devin"`
 }
 
 const (
@@ -33,6 +34,7 @@ var hardcodedUsageLinkDefaults = UsageLinkDefaults{
 	Grok:        "https://grok.com/?_s=usage",
 	Ollama:      "https://ollama.com/settings",
 	OpenCode:    "https://opencode.ai/go",
+	Devin:       "https://app.devin.ai/settings/billing",
 }
 
 // newUsageLinkCache は usage リンクデフォルトの TTL キャッシュを生成する。

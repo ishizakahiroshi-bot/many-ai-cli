@@ -47,6 +47,8 @@
           <text class="prov-letter opencode" x="45" y="7" text-anchor="middle" dominant-baseline="central" font-size="5" font-weight="bold" font-family="sans-serif">O</text>
           <circle class="prov-shape grok" cx="55" cy="7" r="4.5" stroke-width="1.6"/>
           <text class="prov-letter grok" x="55" y="7" text-anchor="middle" dominant-baseline="central" font-size="5" font-weight="bold" font-family="sans-serif">G</text>
+          <circle class="prov-shape devin" cx="55" cy="11" r="4.5" stroke-width="1.6"/>
+          <text class="prov-letter devin" x="55" y="11" text-anchor="middle" dominant-baseline="central" font-size="5" font-weight="bold" font-family="sans-serif">D</text>
           <rect class="prov-shape ollama" x="60.5" y="2.5" width="9" height="9" rx="2" stroke-width="1.6"/>
           <text class="prov-letter ollama" x="65" y="7" text-anchor="middle" dominant-baseline="central" font-size="5" font-weight="bold" font-family="sans-serif">O</text>
           <rect class="prov-shape lm-studio" x="70.5" y="2.5" width="9" height="9" rx="2" stroke-width="1.6"/>
@@ -85,6 +87,11 @@
         <a id="usage-link-grok" class="usage-dropdown-item" href="https://grok.com/?_s=usage" target="_blank" rel="noopener noreferrer">
           <svg class="usage-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle class="prov-shape grok" cx="8" cy="8" r="6" stroke-width="2"/><text class="prov-letter grok" x="8" y="8" text-anchor="middle" dominant-baseline="central" font-size="7.5" font-weight="bold" font-family="sans-serif">G</text></svg>
           <span class="usage-item-name">Grok Build</span>
+          <svg class="usage-item-ext" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><path d="M1.5 1.5h7v7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a id="usage-link-devin" class="usage-dropdown-item" href="https://app.devin.ai/settings/billing" target="_blank" rel="noopener noreferrer">
+          <svg class="usage-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle class="prov-shape devin" cx="8" cy="8" r="6" stroke-width="2"/><text class="prov-letter devin" x="8" y="8" text-anchor="middle" dominant-baseline="central" font-size="7.5" font-weight="bold" font-family="sans-serif">D</text></svg>
+          <span class="usage-item-name">Devin</span>
           <svg class="usage-item-ext" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><path d="M1.5 1.5h7v7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
         </a>
         <a id="usage-link-ollama" class="usage-dropdown-item" href="http://localhost:11434" target="_blank" rel="noopener noreferrer">
@@ -430,6 +437,7 @@
               <option value="cursor-agent" data-i18n="settings_approval_patterns_cursor_agent">Cursor Agent</option>
               <option value="opencode" data-i18n="settings_approval_patterns_opencode">OpenCode</option>
               <option value="grok" data-i18n="settings_approval_patterns_grok">Grok Build</option>
+              <option value="devin" data-i18n="settings_approval_patterns_devin">Devin</option>
               <option value="common" data-i18n="settings_approval_patterns_common">共通</option>
             </select>
           </div>
@@ -998,6 +1006,7 @@
               <option value="cursor-agent">Cursor Agent</option>
               <option value="opencode">OpenCode</option>
               <option value="grok">Grok Build</option>
+              <option value="devin">Devin</option>
               <option value="shell">Shell</option>
             </select>
             <div id="spawn-provider-combobox" class="spawn-provider-combobox">
@@ -1083,6 +1092,7 @@
           <div id="spawn-cursor-agent-note" class="settings-note" data-i18n="spawn_cursor_agent_note" hidden>Uses the installed Cursor Agent CLI. Authentication and permissions are managed by Cursor.</div>
           <div id="spawn-opencode-note" class="settings-note" data-i18n="spawn_opencode_note" hidden>Uses the installed OpenCode CLI. Run `opencode auth login` before starting. Free-tier models may take 1–2 minutes to respond.</div>
           <div id="spawn-grok-note" class="settings-note" data-i18n="spawn_grok_note" hidden>Uses the installed Grok Build CLI (xAI). Requires a SuperGrok or X Premium+ subscription — the base X Premium plan cannot use it. Sign-in and quota stay in Grok.</div>
+          <div id="spawn-devin-note" class="settings-note" data-i18n="spawn_devin_note" hidden>Uses the installed Devin CLI (Cognition). Sign in with `devin auth login` first; model choice and quota stay in Devin.</div>
           <div id="spawn-shell-note" class="settings-note" data-i18n="spawn_shell_note" hidden>Opens the OS default shell (pwsh / bash). No AI-specific options apply.</div>
 
           <!-- C2: Detached 設定セクション -->

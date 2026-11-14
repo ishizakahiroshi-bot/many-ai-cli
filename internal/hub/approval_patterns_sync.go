@@ -115,6 +115,8 @@ func approvalSourceFor(src config.ApprovalPatternSources, provider string) strin
 		return src.Opencode
 	case "grok":
 		return src.Grok
+	case "devin":
+		return src.Devin
 	case "common":
 		return src.Common
 	}

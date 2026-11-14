@@ -62,6 +62,7 @@ var allowedProviders = []string{
 	"cursor-agent",
 	"opencode",
 	"grok",
+	"devin",
 }
 
 // Redact removes secrets and private machine details before report content can

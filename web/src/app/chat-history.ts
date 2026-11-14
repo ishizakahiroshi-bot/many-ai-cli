@@ -573,6 +573,7 @@ export function getAiDisplayName(provider) {
     case 'lm-studio':  return ti18n('chat_ai_name_lm_studio', 'LM Studio');
     case 'opencode': return ti18n('chat_ai_name_opencode', 'OpenCode');
     case 'grok':     return ti18n('chat_ai_name_grok', 'Grok Build');
+    case 'devin':    return ti18n('chat_ai_name_devin', 'Devin');
     default: return provider ? String(provider) : 'AI';
   }
 }
@@ -586,6 +587,7 @@ export function getAiAvatarLetter(provider) {
     case 'lm-studio':  return 'L';
     case 'opencode': return 'P';
     case 'grok':     return 'G';
+    case 'devin':    return 'D';
     default: return 'A';
   }
 }

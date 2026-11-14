@@ -21,6 +21,9 @@ type modelsDefaults struct {
 	// Grok は Grok Build CLI の `--model` に渡す候補。route/env 注入は行わず、
 	// 対応可否は grok 側に委ねる（全 ID は `grok models` 参照、datalist で自由入力可）。
 	Grok []Model `json:"grok"`
+	// Devin は Devin CLI の `--model` に渡す候補。route/env 注入は行わず、
+	// 対応可否は devin 側に委ねる（全 ID は `devin models` 参照、datalist で自由入力可）。
+	Devin []Model `json:"devin"`
 }
 
 const (

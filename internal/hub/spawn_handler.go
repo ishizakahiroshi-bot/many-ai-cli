@@ -223,7 +223,7 @@ func (s *Server) handleSpawn(w http.ResponseWriter, r *http.Request) {
 	if !decodeJSON(w, r, &body) {
 		return
 	}
-	if body.Provider != "claude" && body.Provider != "codex" && body.Provider != "copilot" && body.Provider != "cursor-agent" && body.Provider != "opencode" && body.Provider != "grok" && body.Provider != "shell" {
+	if body.Provider != "claude" && body.Provider != "codex" && body.Provider != "copilot" && body.Provider != "cursor-agent" && body.Provider != "opencode" && body.Provider != "grok" && body.Provider != "devin" && body.Provider != "shell" {
 		writeJSONError(w, http.StatusBadRequest, "bad_request", "invalid provider")
 		return
 	}
@@ -720,7 +720,7 @@ func (s *Server) handleSpawnGrid(w http.ResponseWriter, r *http.Request) {
 		aiProvider = "claude"
 	}
 	validAIProviders := map[string]bool{
-		"claude": true, "codex": true, "copilot": true, "cursor-agent": true, "opencode": true, "grok": true,
+		"claude": true, "codex": true, "copilot": true, "cursor-agent": true, "opencode": true, "grok": true, "devin": true,
 	}
 	if body.Preset == "ai+shell" && !validAIProviders[aiProvider] {
 		writeJSONError(w, http.StatusBadRequest, "bad_request", "invalid ai provider for ai+shell preset")

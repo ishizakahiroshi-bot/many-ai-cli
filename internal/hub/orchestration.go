@@ -584,7 +584,7 @@ func applyChildApprovalDefaults(body *spawnChildRequest) {
 			body.Sandbox = "danger-full-access"
 		}
 	default:
-		// claude / grok は --permission-mode をネイティブサポート。
+		// claude / grok / devin は --permission-mode をネイティブサポート。
 		// copilot / cursor-agent / opencode は wrapper 側で各 CLI の全許可指定
 		// （--allow-all / --force / opencode.json permission "*":"allow"）に変換される。
 		if body.PermissionMode == "" {
@@ -1757,7 +1757,7 @@ func safeToken(value string) string {
 
 func validOrchestrationProvider(provider string) bool {
 	switch provider {
-	case "claude", "codex", "copilot", "cursor-agent", "opencode", "grok":
+	case "claude", "codex", "copilot", "cursor-agent", "opencode", "grok", "devin":
 		return true
 	default:
 		return false

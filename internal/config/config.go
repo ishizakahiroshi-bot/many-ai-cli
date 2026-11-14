@@ -80,6 +80,7 @@ type SlashCmdSources struct {
 	CursorAgent string `yaml:"cursor-agent" json:"cursor-agent"`
 	Opencode    string `yaml:"opencode" json:"opencode"`
 	Grok        string `yaml:"grok" json:"grok"`
+	Devin       string `yaml:"devin" json:"devin"`
 }
 
 const (
@@ -90,6 +91,7 @@ const (
 	DefaultCursorAgentSlashCmdSource = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/slash-commands/cursor-agent.md"
 	DefaultOpenCodeSlashCmdSource    = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/slash-commands/opencode.md"
 	DefaultGrokSlashCmdSource        = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/slash-commands/grok.md"
+	DefaultDevinSlashCmdSource       = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/slash-commands/devin.md"
 )
 
 const DefaultUsageLinkSource = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/usage-links/defaults.json"
@@ -108,6 +110,7 @@ func DefaultSlashCmdSources() SlashCmdSources {
 		CursorAgent: DefaultCursorAgentSlashCmdSource,
 		Opencode:    DefaultOpenCodeSlashCmdSource,
 		Grok:        DefaultGrokSlashCmdSource,
+		Devin:       DefaultDevinSlashCmdSource,
 	}
 }
 
@@ -134,6 +137,9 @@ func EffectiveSlashCmdSources(src SlashCmdSources) SlashCmdSources {
 	if src.Grok == "" {
 		src.Grok = defaults.Grok
 	}
+	if src.Devin == "" {
+		src.Devin = defaults.Devin
+	}
 	return src
 }
 
@@ -146,6 +152,7 @@ type ApprovalPatternSources struct {
 	CursorAgent string `yaml:"cursor-agent,omitempty" json:"cursor-agent,omitempty"`
 	Opencode    string `yaml:"opencode,omitempty" json:"opencode,omitempty"`
 	Grok        string `yaml:"grok,omitempty" json:"grok,omitempty"`
+	Devin       string `yaml:"devin,omitempty" json:"devin,omitempty"`
 	Common      string `yaml:"common,omitempty"  json:"common,omitempty"`
 }
 
@@ -157,6 +164,7 @@ const (
 	DefaultCommonApprovalPatternSource      = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/approval-patterns/common.md"
 	DefaultOpenCodeApprovalPatternSource    = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/approval-patterns/opencode.md"
 	DefaultGrokApprovalPatternSource        = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/approval-patterns/grok.md"
+	DefaultDevinApprovalPatternSource       = "https://raw.githubusercontent.com/ishizakahiroshi/many-ai-cli/main/resources/approval-patterns/devin.md"
 )
 
 func DefaultApprovalPatternSources() ApprovalPatternSources {
@@ -167,6 +175,7 @@ func DefaultApprovalPatternSources() ApprovalPatternSources {
 		CursorAgent: DefaultCursorAgentApprovalPatternSource,
 		Opencode:    DefaultOpenCodeApprovalPatternSource,
 		Grok:        DefaultGrokApprovalPatternSource,
+		Devin:       DefaultDevinApprovalPatternSource,
 		Common:      DefaultCommonApprovalPatternSource,
 	}
 }
@@ -191,6 +200,9 @@ func EffectiveApprovalPatternSources(src ApprovalPatternSources) ApprovalPattern
 	if src.Grok == "" {
 		src.Grok = defaults.Grok
 	}
+	if src.Devin == "" {
+		src.Devin = defaults.Devin
+	}
 	if src.Common == "" {
 		src.Common = defaults.Common
 	}
@@ -213,6 +225,7 @@ type ApprovalProfiles struct {
 	CursorAgent ApprovalProfileName `yaml:"cursor-agent,omitempty" json:"cursor-agent,omitempty"`
 	Opencode    ApprovalProfileName `yaml:"opencode,omitempty" json:"opencode,omitempty"`
 	Grok        ApprovalProfileName `yaml:"grok,omitempty" json:"grok,omitempty"`
+	Devin       ApprovalProfileName `yaml:"devin,omitempty" json:"devin,omitempty"`
 	Common      ApprovalProfileName `yaml:"common,omitempty"  json:"common,omitempty"`
 }
 
@@ -225,6 +238,7 @@ func DefaultApprovalProfiles() ApprovalProfiles {
 		CursorAgent: ApprovalProfileOfficial,
 		Opencode:    ApprovalProfileOfficial,
 		Grok:        ApprovalProfileOfficial,
+		Devin:       ApprovalProfileOfficial,
 		Common:      ApprovalProfileOfficial,
 	}
 }
@@ -282,6 +296,10 @@ func (p ApprovalProfiles) For(provider string) ApprovalProfileName {
 		if p.Grok != "" {
 			return p.Grok
 		}
+	case "devin":
+		if p.Devin != "" {
+			return p.Devin
+		}
 	case "common":
 		if p.Common != "" {
 			return p.Common
@@ -305,6 +323,8 @@ func (p ApprovalProfiles) WithProvider(provider string, name ApprovalProfileName
 		p.Opencode = name
 	case "grok":
 		p.Grok = name
+	case "devin":
+		p.Devin = name
 	case "common":
 		p.Common = name
 	}
@@ -386,6 +406,7 @@ type UserPrefsUsageLinks struct {
 	CursorAgent string `yaml:"cursor-agent,omitempty" json:"cursor-agent,omitempty"`
 	Opencode    string `yaml:"opencode,omitempty" json:"opencode,omitempty"`
 	Grok        string `yaml:"grok,omitempty" json:"grok,omitempty"`
+	Devin       string `yaml:"devin,omitempty" json:"devin,omitempty"`
 }
 
 // UserPrefsVoice は音声入力の設定。

@@ -9,6 +9,7 @@ if [ "${MANY_AI_CLI_AUTO:-0}" = "1" ]; then
   cursor-agent(){ many-ai-cli cursor-agent "$@"; }
   opencode(){ many-ai-cli opencode "$@"; }
   grok(){ many-ai-cli grok "$@"; }
+  devin(){ many-ai-cli devin "$@"; }
 fi
 `
 }

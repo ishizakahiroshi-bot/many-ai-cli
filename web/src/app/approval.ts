@@ -270,6 +270,7 @@ export function isAIProvider(provider: string): boolean {
     case 'cursor-agent':
     case 'opencode':
     case 'grok':
+    case 'devin':
       return true;
     default:
       return false;
@@ -296,7 +297,7 @@ export function shouldSkipClearPrefix(provider: string): boolean {
 // Hub 起動時にデフォルトをユーザー設定ディレクトリに展開（既存ファイルは尊重）し、
 // HTTP 経由で配信する。ユーザーが直接編集して文言を追加・調整できる。
 // claude / codex は英語固定（Anthropic/OpenAI が国際化していない）、common は多言語混在。
-export const providerApprovalTriggers = { claude: [], codex: [], copilot: [], 'cursor-agent': [], opencode: [], grok: [], common: [] };
+export const providerApprovalTriggers = { claude: [], codex: [], copilot: [], 'cursor-agent': [], opencode: [], grok: [], devin: [], common: [] };
 
 (async function loadApprovalPatterns() {
   const fetchJson = async (name) => {
@@ -309,8 +310,8 @@ export const providerApprovalTriggers = { claude: [], codex: [], copilot: [], 'c
       return [];
     }
   };
-  const [claude, codex, copilot, cursorAgent, opencode, grok, common] = await Promise.all([
-    fetchJson('claude'), fetchJson('codex'), fetchJson('copilot'), fetchJson('cursor-agent'), fetchJson('opencode'), fetchJson('grok'), fetchJson('common'),
+  const [claude, codex, copilot, cursorAgent, opencode, grok, devin, common] = await Promise.all([
+    fetchJson('claude'), fetchJson('codex'), fetchJson('copilot'), fetchJson('cursor-agent'), fetchJson('opencode'), fetchJson('grok'), fetchJson('devin'), fetchJson('common'),
   ]);
   const norm = arr => (Array.isArray(arr) ? arr : []).map(s => String(s).toLowerCase()).filter(Boolean);
   providerApprovalTriggers.claude = norm(claude);
@@ -319,6 +320,7 @@ export const providerApprovalTriggers = { claude: [], codex: [], copilot: [], 'c
   providerApprovalTriggers['cursor-agent'] = norm(cursorAgent);
   providerApprovalTriggers.opencode = norm(opencode);
   providerApprovalTriggers.grok = norm(grok);
+  providerApprovalTriggers.devin = norm(devin);
   providerApprovalTriggers.common = norm(common);
 })();
 
