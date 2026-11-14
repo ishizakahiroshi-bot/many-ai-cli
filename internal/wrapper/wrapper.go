@@ -763,7 +763,7 @@ func Run(cfg *config.Config, logger *slog.Logger, provider string, args []string
 	fs := flag.NewFlagSet("wrap", flag.ContinueOnError)
 	label := fs.String("label", "", "session label shown in UI card")
 	model := fs.String("model", "", "model override")
-	permissionMode := fs.String("permission-mode", "", "permission mode (claude/grok: passed through; copilot/cursor-agent/opencode: bypassPermissions maps to each CLI's full-allow option)")
+	permissionMode := fs.String("permission-mode", "", "permission mode (claude/grok: passed through; devin: bypassPermissions maps to dangerous; copilot/cursor-agent/opencode: bypassPermissions maps to each CLI's full-allow option)")
 	sandbox := fs.String("sandbox", "", "codex sandbox mode")
 	askForApproval := fs.String("ask-for-approval", "", "codex ask-for-approval")
 	codexOSS := fs.Bool("codex-oss", false, "codex: use --oss to route via local Ollama daemon")
@@ -780,6 +780,19 @@ func Run(cfg *config.Config, logger *slog.Logger, provider string, args []string
 	case "claude", "grok":
 		// grok CLI は claude 互換の --permission-mode（bypassPermissions 含む）をネイティブサポートする
 		if *permissionMode != "" && *permissionMode != "default" {
+			extra = append(extra, "--permission-mode", *permissionMode)
+		}
+	case "devin":
+		// devin CLI は --permission-mode をネイティブサポートするが値の語彙が
+		// 独自（auto / accept-edits / smart / dangerous）。claude 系の値は対応する
+		// devin 側の値へ変換し、devin 側の値はそのまま渡す。
+		switch *permissionMode {
+		case "", "default":
+		case "bypassPermissions":
+			extra = append(extra, "--permission-mode", "dangerous")
+		case "acceptEdits":
+			extra = append(extra, "--permission-mode", "accept-edits")
+		case "auto", "accept-edits", "smart", "dangerous":
 			extra = append(extra, "--permission-mode", *permissionMode)
 		}
 	case "codex":
@@ -824,7 +837,7 @@ func Run(cfg *config.Config, logger *slog.Logger, provider string, args []string
 		return err
 	}
 	cwd, _ := os.Getwd()
-	display := map[string]string{"claude": "Claude", "codex": "Codex", "copilot": "GitHub Copilot", "cursor-agent": "Cursor Agent", "opencode": "OpenCode", "grok": "Grok Build", "shell": "Shell"}[provider]
+	display := map[string]string{"claude": "Claude", "codex": "Codex", "copilot": "GitHub Copilot", "cursor-agent": "Cursor Agent", "opencode": "OpenCode", "grok": "Grok Build", "devin": "Devin", "shell": "Shell"}[provider]
 	termCols, termRows := 0, 0
 	if w, h, err := term.GetSize(int(os.Stdin.Fd())); err == nil && w > 0 && h > 0 {
 		termCols, termRows = w, h

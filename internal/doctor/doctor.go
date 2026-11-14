@@ -67,7 +67,7 @@ func Run(ctx context.Context, cfg *config.Config) Report {
 }
 
 func providers(ctx context.Context) Check {
-	names := []string{"claude", "codex", "copilot", "cursor-agent", "opencode", "grok"}
+	names := []string{"claude", "codex", "copilot", "cursor-agent", "opencode", "grok", "devin"}
 	var found []string
 	for _, name := range names {
 		path, err := providerLookPath(name)

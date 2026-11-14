@@ -518,6 +518,7 @@ func buildModelsResponse(cache *modelsCache, remote *ttlCache[modelsDefaults], r
 			"anthropic":           remoteSource,
 			"openai":              remoteSource,
 			"opencode":            "opencode models opencode --verbose",
+			"devin":               "devin models",
 			"ollama_local":        ollamaTagsURL(ollamaBaseURL),
 			"lm_studio":           lmStudioModelsURL(lmStudioBaseURL),
 			"local_models_config": "~/.many-ai-cli/config.yaml#local_models",
@@ -571,6 +572,17 @@ func buildModelsResponse(cache *modelsCache, remote *ttlCache[modelsDefaults], r
 			Provider: "grok",
 			Route:    "",
 			Models:   append([]Model{}, defaults.Grok...),
+		})
+	}
+
+	// Devin（GitHub fetch only）
+	// Route は空: devin は env 注入せず `devin --model <id>` へ素通しする。
+	if len(defaults.Devin) > 0 {
+		resp.Groups = append(resp.Groups, ModelGroup{
+			Label:    "Devin",
+			Provider: "devin",
+			Route:    "",
+			Models:   append([]Model{}, defaults.Devin...),
 		})
 	}
 

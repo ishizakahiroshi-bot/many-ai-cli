@@ -61,6 +61,7 @@ import { appConfirm, appConfirmOllamaEncoding } from './settings.js';
     { value: 'cursor-agent', label: 'Cursor Agent' },
     { value: 'opencode',     label: 'OpenCode' },
     { value: 'grok',         label: 'Grok Build' },
+    { value: 'devin',        label: 'Devin' },
   ];
 
   function syncRoleModelDisabledState(): void {
@@ -220,6 +221,9 @@ import { appConfirm, appConfirmOllamaEncoding } from './settings.js';
     }
     if (provider === 'grok') {
       return spawnModelGroups.filter(g => g && g.provider === 'grok' && Array.isArray(g.models));
+    }
+    if (provider === 'devin') {
+      return spawnModelGroups.filter(g => g && g.provider === 'devin' && Array.isArray(g.models));
     }
     const groups = spawnModelGroups.filter(g => g && Array.isArray(g.models) && (!g.provider || g.provider === provider));
     groups.sort((a, b) => {
@@ -537,6 +541,7 @@ import { appConfirm, appConfirmOllamaEncoding } from './settings.js';
     const cursorAgentNote = document.getElementById('spawn-cursor-agent-note');
     const opencodeNote = document.getElementById('spawn-opencode-note');
     const grokNote = document.getElementById('spawn-grok-note');
+    const devinNote = document.getElementById('spawn-devin-note');
     const shellNote = document.getElementById('spawn-shell-note');
     if (claudeNote) claudeNote.hidden = (p !== 'claude');
     if (codexNote) codexNote.hidden = (p !== 'codex');
@@ -544,6 +549,7 @@ import { appConfirm, appConfirmOllamaEncoding } from './settings.js';
     if (cursorAgentNote) cursorAgentNote.hidden = (p !== 'cursor-agent');
     if (opencodeNote) opencodeNote.hidden = (p !== 'opencode');
     if (grokNote) grokNote.hidden = (p !== 'grok');
+    if (devinNote) devinNote.hidden = (p !== 'devin');
     if (shellNote) shellNote.hidden = !isShell;
     if (p !== 'codex')  codexModelSelection  = null;
     if (p !== 'claude') claudeModelSelection = null;
@@ -617,6 +623,7 @@ import { appConfirm, appConfirmOllamaEncoding } from './settings.js';
         const cursorAgentNote = document.getElementById('spawn-cursor-agent-note');
         const opencodeNote = document.getElementById('spawn-opencode-note');
         const grokNote = document.getElementById('spawn-grok-note');
+        const devinNote = document.getElementById('spawn-devin-note');
         const shellNote = document.getElementById('spawn-shell-note');
         if (claudeNote) claudeNote.hidden = (p !== 'claude');
         if (codexNote) codexNote.hidden = (p !== 'codex');
@@ -624,6 +631,7 @@ import { appConfirm, appConfirmOllamaEncoding } from './settings.js';
         if (cursorAgentNote) cursorAgentNote.hidden = (p !== 'cursor-agent');
         if (opencodeNote) opencodeNote.hidden = (p !== 'opencode');
         if (grokNote) grokNote.hidden = (p !== 'grok');
+        if (devinNote) devinNote.hidden = (p !== 'devin');
         if (shellNote) shellNote.hidden = !isShell;
       }
       if (s.cwd)              spawnCwdInput.value = s.cwd;

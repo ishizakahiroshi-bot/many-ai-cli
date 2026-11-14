@@ -74,7 +74,7 @@ func mergeApprovalRuleTargets(targets []approvalRuleTarget) []approvalRuleTarget
 // 適用される）かどうかを返す。Shell セッションは対象外。
 func isAIProvider(provider string) bool {
 	switch provider {
-	case "claude", "codex", "copilot", "cursor-agent", "opencode", "grok":
+	case "claude", "codex", "copilot", "cursor-agent", "opencode", "grok", "devin":
 		return true
 	default:
 		return false
@@ -162,9 +162,9 @@ func providerApprovalRuleTargets(provider, cwd string) []approvalRuleTarget {
 			Providers: []string{"codex"},
 			Mode:      approvalRuleModeSharedBlock,
 		}}
-	case "copilot", "cursor-agent", "grok":
+	case "copilot", "cursor-agent", "grok", "devin":
 		// grok (Grok Build) は CLAUDE.md / AGENTS.md を両方ネイティブに読む
-		// （Claude Code 互換 harness）。copilot / cursor-agent と同じく
+		// （Claude Code 互換 harness）。copilot / cursor-agent / devin と同じく
 		// プロジェクト直下 AGENTS.md へ共有ブロックを注入する。
 		return projectAgentsApprovalRuleTarget(provider, cwd)
 	default:

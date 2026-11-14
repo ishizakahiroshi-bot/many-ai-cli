@@ -274,6 +274,7 @@ export function providerDisplayName(provider) {
     'lm-studio': 'LM Studio',
     opencode: 'OpenCode',
     grok: 'Grok Build',
+    devin: 'Devin',
   };
   return labels[key] || String(provider || '');
 }
@@ -307,6 +308,9 @@ export function providerIconHtml(provider, size = 16) {
   }
   if (key === 'grok') {
     return `<svg ${base}><circle class="prov-shape grok" cx="8" cy="8" r="6" stroke-width="2"/><text class="prov-letter grok" x="8" y="8" ${txt}>G</text></svg>`;
+  }
+  if (key === 'devin') {
+    return `<svg ${base}><circle class="prov-shape devin" cx="8" cy="8" r="6" stroke-width="2"/><text class="prov-letter devin" x="8" y="8" ${txt}>D</text></svg>`;
   }
   const letter = escapeHtml((String(provider || '?').trim()[0] || '?').toUpperCase());
   return `<svg ${base}><circle class="prov-shape" cx="8" cy="8" r="6" stroke-width="2"/><text class="prov-letter" x="8" y="8" ${txt}>${letter}</text></svg>`;
@@ -1205,7 +1209,7 @@ export function renderSummaryAndNotifications() {
 	const totalWaiting = stateCounts.waiting;
 	const totalApprovals = Array.from(sessions.values()).filter(s => s.awaiting_approval === true).length;
 
-  const PROVIDER_ORDER = { claude: 0, ollama: 1, 'lm-studio': 2, codex: 3, copilot: 4, opencode: 5, 'cursor-agent': 6, grok: 7 };
+  const PROVIDER_ORDER = { claude: 0, ollama: 1, 'lm-studio': 2, codex: 3, copilot: 4, opencode: 5, 'cursor-agent': 6, grok: 7, devin: 8 };
   const sortedGroups = Array.from(providerGroups.values()).sort((a, b) => {
     const ka = a.localRoute || a.provider;
     const kb = b.localRoute || b.provider;

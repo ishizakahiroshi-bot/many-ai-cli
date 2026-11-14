@@ -65,6 +65,10 @@ func (s *Server) handleSlashCmdSources(w http.ResponseWriter, r *http.Request) {
 			writeJSONError(w, http.StatusBadRequest, "bad_request", errorDetail("invalid grok source", err))
 			return
 		}
+		if err := validateSlashCmdSource(body.Devin); err != nil {
+			writeJSONError(w, http.StatusBadRequest, "bad_request", errorDetail("invalid devin source", err))
+			return
+		}
 		s.cfgMu.Lock()
 		prev := s.cfg.SlashCmdSources
 		s.cfg.SlashCmdSources = body
@@ -87,6 +91,9 @@ func (s *Server) handleSlashCmdSources(w http.ResponseWriter, r *http.Request) {
 		if body.Grok != prev.Grok {
 			s.invalidateSlashCache("grok")
 		}
+		if body.Devin != prev.Devin {
+			s.invalidateSlashCache("devin")
+		}
 		if err := s.persistConfig(); err != nil {
 			writeJSONError(w, http.StatusInternalServerError, "save_failed", "save failed")
 			return
@@ -104,7 +111,7 @@ func (s *Server) handleSlashCommands(w http.ResponseWriter, r *http.Request) {
 	}
 
 	provider := r.URL.Query().Get("provider")
-	if provider != "claude" && provider != "codex" && provider != "copilot" && provider != "cursor-agent" && provider != "opencode" && provider != "grok" {
+	if provider != "claude" && provider != "codex" && provider != "copilot" && provider != "cursor-agent" && provider != "opencode" && provider != "grok" && provider != "devin" {
 		writeJSONError(w, http.StatusBadRequest, "bad_request", "invalid provider")
 		return
 	}
@@ -138,6 +145,8 @@ func (s *Server) handleSlashCommands(w http.ResponseWriter, r *http.Request) {
 		sourceURL = src.Opencode
 	case "grok":
 		sourceURL = src.Grok
+	case "devin":
+		sourceURL = src.Devin
 	}
 	s.cfgMu.Unlock()
 

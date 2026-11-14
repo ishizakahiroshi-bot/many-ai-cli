@@ -78,6 +78,17 @@ var defaultApprovalPatterns = map[string][]string{
 		"approve?",
 		"proceed?",
 	},
+	// devin (Devin CLI) の承認プロンプトは Claude Code 系と推定し、暫定で
+	// Claude 系 + 汎用文言を採用する。実機 TUI で確定すること。
+	"devin": {
+		"do you want to",
+		"esc to cancel",
+		"press enter to confirm",
+		"allow this command",
+		"permission required",
+		"approve?",
+		"proceed?",
+	},
 	"common": {
 		"would you like to",
 		"この操作を許可",
@@ -89,7 +100,7 @@ var defaultApprovalPatterns = map[string][]string{
 
 // KnownApprovalProviders は承認パターンを管理する provider 名一覧（順序固定）。
 func KnownApprovalProviders() []string {
-	return []string{"claude", "codex", "copilot", "cursor-agent", "opencode", "grok", "common"}
+	return []string{"claude", "codex", "copilot", "cursor-agent", "opencode", "grok", "devin", "common"}
 }
 
 // IsKnownApprovalProvider は provider 名が管理対象か判定する。
