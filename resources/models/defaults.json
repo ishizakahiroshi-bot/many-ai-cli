@@ -79,5 +79,9 @@
     {"id": "grok-4.5",                   "label": "Grok 4.5"},
     {"id": "grok-4.20-0309-reasoning",   "label": "Grok 4.20 Reasoning"},
     {"id": "grok-3",                     "label": "Grok 3"}
+  ],
+  "devin": [
+    {"id": "swe-2",        "label": "SWE-2"},
+    {"id": "swe-2-flash",  "label": "SWE-2 Flash"}
   ]
 }
